@@ -79,7 +79,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(68, 33);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Get Chart";
+            this.button1.Text = "Get Graph";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -109,7 +109,7 @@
             this.textBoxA.Name = "textBoxA";
             this.textBoxA.Size = new System.Drawing.Size(100, 20);
             this.textBoxA.TabIndex = 4;
-            this.textBoxA.Text = "-1";
+            this.textBoxA.Text = "-4";
             this.textBoxA.TextChanged += new System.EventHandler(this.textBoxA_TextChanged);
             // 
             // textBoxB
@@ -118,7 +118,7 @@
             this.textBoxB.Name = "textBoxB";
             this.textBoxB.Size = new System.Drawing.Size(100, 20);
             this.textBoxB.TabIndex = 4;
-            this.textBoxB.Text = "0";
+            this.textBoxB.Text = "4";
             // 
             // textBoxSave
             // 

@@ -10,6 +10,21 @@ using System.Text.RegularExpressions;
 using ZedGraph;
 
 
+/* 1. y^2 = x^3 + ax + b, <-- elliptic curve
+ * 
+ * Insert a and b for eliiptic curve grahp
+ * 
+ * 2. Push the "Get Chart" button to get Chart
+ * 
+ * 3. Select two points [(x1,y1) and (x2, y2) in the graph in order to get R (Rx1, Ry2). 
+ *
+ * 
+ * 
+ * 
+ */
+
+
+
 namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
@@ -124,73 +139,82 @@ namespace WindowsFormsApplication1
         {
 
 
-            textBoxX1.Text = "";
-            textBoxX2.Text = "";
-            textBoxY1.Text = "";
-            textBoxY2.Text = "";
+            textBoxX1.Text = null;
+            textBoxX2.Text = null;
+            textBoxY1.Text = null;
+            textBoxY2.Text = null;
         }
 
         private void GetRButton_Click(object sender, EventArgs e)
         {
-            double x, y,x3,y3;
-            double x1 = Convert.ToDouble(textBoxX1.Text);
-            double y1 = Convert.ToDouble(textBoxY1.Text);
-            double x2 = Convert.ToDouble(textBoxX2.Text);
-            double y2 = Convert.ToDouble(textBoxY2.Text);
-            string R = "";
-            double m = (y2 - y1) / (x2 - x1);
-            x3 = 0;
-            y3 = 0;
 
 
-            Zd_Pen1 = zedGraphControl1.GraphPane;
-           
-            PointPairList list1 = new PointPairList();
-            for (double i = -300; i < 300; i = i + 0.01)
+            if (textBoxX1.Text == "" && textBoxX2.Text == "" && textBoxY1.Text == "" && textBoxY2.Text == "")
             {
-                x = (double)i;
-                y = m*(x-x1)+y1;
-                list1.Add(x, y);
-
-            }
-
-
-            LineItem Curve1 = Zd_Pen1.AddCurve("Line", list1, Color.Blue, SymbolType.None);
-            Curve1.Line.Width = 1.0F;
-
-            //draw
-            zedGraphControl1.AxisChange();
-            zedGraphControl1.Invalidate();
-            zedGraphControl1.Refresh();
-            if (x1 == x2 && y1 == y2)
-            {
-                x3 = Math.Pow(m, 2) - x1*2;
-                y3 = m * (2 * x1 - Math.Pow(m, 2) - x2) - y1;
-
-            }
-            else if (x1 == x2 && -y1 == y2)
-            {
-                R = "infinity O";
+                MessageBox.Show("Select 2 points in the Graph ( using Mouse left button)");
             }
             else
             {
 
-                x3 = Math.Pow(m, 2) - x1 - x2;
-                y3 = m * (x1 - x3) - y1;
-            }
+                double x, y, x3, y3;
+                double x1 = Convert.ToDouble(textBoxX1.Text);
+                double y1 = Convert.ToDouble(textBoxY1.Text);
+                double x2 = Convert.ToDouble(textBoxX2.Text);
+                double y2 = Convert.ToDouble(textBoxY2.Text);
+                string R = "";
+                double m = (y2 - y1) / (x2 - x1);
+                x3 = 0;
+                y3 = 0;
 
-            if (R.Equals(""))
-            {
 
-                textBoxRX.Text = Convert.ToString(x3);
-                textBoxRY.Text=Convert.ToString(y3);
-            }
-            else
-            {
-                textBoxRX.Text = R;
-            }
+                Zd_Pen1 = zedGraphControl1.GraphPane;
 
-            
+                PointPairList list1 = new PointPairList();
+                for (double i = -300; i < 300; i = i + 0.01)
+                {
+                    x = (double)i;
+                    y = m * (x - x1) + y1;
+                    list1.Add(x, y);
+
+                }
+
+
+                LineItem Curve1 = Zd_Pen1.AddCurve("Line", list1, Color.Blue, SymbolType.None);
+                Curve1.Line.Width = 1.0F;
+
+                //draw
+                zedGraphControl1.AxisChange();
+                zedGraphControl1.Invalidate();
+                zedGraphControl1.Refresh();
+                if (x1 == x2 && y1 == y2)
+                {
+                    x3 = Math.Pow(m, 2) - x1 * 2;
+                    y3 = m * (2 * x1 - Math.Pow(m, 2) - x2) - y1;
+
+                }
+                else if (x1 == x2 && -y1 == y2)
+                {
+                    R = "infinity O";
+                }
+                else
+                {
+
+                    x3 = Math.Pow(m, 2) - x1 - x2;
+                    y3 = m * (x1 - x3) - y1;
+                }
+
+                if (R.Equals(""))
+                {
+
+                    textBoxRX.Text = Convert.ToString(x3);
+                    textBoxRY.Text = Convert.ToString(y3);
+                }
+                else
+                {
+                    textBoxRX.Text = R;
+                }
+
+            }
 
 
             
